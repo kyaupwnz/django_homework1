@@ -13,7 +13,7 @@ class MyServer(BaseHTTPRequestHandler):
             json.dump(data, list_file)
 
     def do_GET(self):
-        #result_string = json.dumps(self._get_json_from_file())
+        result_string = json.dumps(self._get_json_from_file())
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
@@ -26,7 +26,9 @@ class MyServer(BaseHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
 
         data_from_request = json.loads(post_data)
+        print(post_data)
         data_from_file.append(data_from_request)
+        print(data_from_file)
         self._write_data_to_json(data_from_file)
 
         self.send_response(201)
